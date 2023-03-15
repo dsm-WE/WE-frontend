@@ -1,5 +1,5 @@
-import MyPage from "pages/myPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MyPage from "pages/myPage";
 
 const Router = (): JSX.Element => {
   return (
