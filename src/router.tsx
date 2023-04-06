@@ -1,11 +1,25 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MyPage from "pages/myPage";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import MyPage from 'pages/myPage';
+import Main from 'pages/main';
+import Auth from 'pages/auth';
+import UserEdit from 'pages/myPage/edit';
+import WritePost from 'pages/portfolio/write';
+import PortfolioDetail from 'pages/portfolio/detail/[id]';
 
-const Router = (): JSX.Element => {
+const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<MyPage />} path="/myPage" />
+        <Route path="/" element={<Main />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/myPage">
+          <Route path="" element={<MyPage />} />
+          <Route path="edit" element={<UserEdit />} />
+        </Route>
+        <Route path="/portfolio">
+          <Route path="write" element={<WritePost />} />
+          <Route path="detail/:id" element={<PortfolioDetail />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
