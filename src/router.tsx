@@ -5,10 +5,12 @@ import Auth from 'pages/auth';
 import UserEdit from 'pages/myPage/edit';
 import WritePost from 'pages/portfolio/write';
 import PortfolioDetail from 'pages/portfolio/detail/[id]';
+import Header from 'components/common/header';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
