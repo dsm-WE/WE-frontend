@@ -10,17 +10,18 @@ import Header from 'components/common/header';
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/myPage">
-          <Route path="" element={<MyPage />} />
-          <Route path="edit" element={<UserEdit />} />
-        </Route>
-        <Route path="/portfolio">
-          <Route path="write" element={<WritePost />} />
-          <Route path="detail/:id" element={<PortfolioDetail />} />
+        <Route element={<Header />}>
+          <Route path="/" element={<Main />} />
+          <Route path="/myPage">
+            <Route path="" element={<MyPage />} />
+            <Route path="edit" element={<UserEdit />} />
+          </Route>
+          <Route path="/portfolio">
+            <Route path="write" element={<WritePost />} />
+            <Route path="detail/:id" element={<PortfolioDetail />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

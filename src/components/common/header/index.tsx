@@ -1,14 +1,18 @@
-import styled from 'styled-components';
-import { WE_Logo, searchIcon } from 'assets';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Link, Outlet } from 'react-router-dom';
+import { WE_Logo, searchIcon } from 'assets';
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(!false);
 
   const UserProfile = () => {
     if (isLogin) {
-      return <Profile />;
+      return (
+        <Link to={'/myPage'}>
+          <Profile />
+        </Link>
+      );
     }
 
     return (
@@ -24,26 +28,30 @@ const Header = () => {
   };
 
   return (
-    <HeaderContainer>
-      <BoxSection>
-        <Logo />
-        <SearchInputWrap>
-          <SearchInput />
-          <SearchIcon />
-        </SearchInputWrap>
-      </BoxSection>
-      <BoxSection>
-        <Nav>
-          <Link to={'/'}>
-            <NavItem>포트폴리오 소식</NavItem>
-          </Link>
-          <Link to={'/myPage'}>
-            <NavItem>마이페이지</NavItem>
-          </Link>
-        </Nav>
-        {UserProfile()}
-      </BoxSection>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <BoxSection>
+          <Logo />
+          <SearchInputWrap>
+            <SearchInput />
+            <SearchIcon />
+          </SearchInputWrap>
+        </BoxSection>
+        <BoxSection>
+          <Nav>
+            <Link to={'/'}>
+              <NavItem>포트폴리오 소식</NavItem>
+            </Link>
+            <Link to={'/myPage'}>
+              <NavItem>마이페이지</NavItem>
+            </Link>
+          </Nav>
+          <UserProfile />
+        </BoxSection>
+      </HeaderContainer>
+      <SizedBox />
+      <Outlet />
+    </>
   );
 };
 
@@ -147,4 +155,10 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  position: fixed;
+`;
+
+const SizedBox = styled.div`
+  height: 70px;
 `;
