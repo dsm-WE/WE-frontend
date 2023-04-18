@@ -50,6 +50,11 @@ const WritePortfolio = () => {
     setData((pre) => ({ ...pre, hashtag: tempHash }));
   };
 
+  const submit = () => {
+    console.log(data);
+    console.log(portfolioFile);
+  };
+
   return (
     <WritePost>
       <FieldSet>
@@ -112,9 +117,27 @@ const WritePortfolio = () => {
           </>
         )}
       </FieldSet>
+
+      <SubmitBtn onClick={submit}>포트폴리오 공유하기</SubmitBtn>
     </WritePost>
   );
 };
+
+const SubmitBtn = styled.button`
+  width: 310px;
+  height: 44px;
+
+  margin-top: 40px;
+
+  background: #242e63;
+  border: none;
+  border-radius: 5px;
+
+  color: #ffffff;
+  font-size: 16px;
+
+  cursor: pointer;
+`;
 
 const Delete = styled.div`
   width: 12px;
