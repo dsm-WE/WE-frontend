@@ -1,4 +1,4 @@
-import { cancelIcon } from 'assets';
+import { addFileIcon, cancelIcon, fileIcon } from 'assets';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import styled from 'styled-components';
 import { WritePostDataType } from 'utils/interface/writePost';
@@ -10,6 +10,19 @@ const WritePortfolio = () => {
     hashtag: [],
   });
   const [hashInput, setHashInput] = useState<string>('');
+  const [portfolioFile, setPortfolioFile] = useState<File | null>(null);
+
+  const fileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files as FileList;
+    const theFile = fileList[0];
+
+    console.log(theFile.name);
+    setPortfolioFile(theFile);
+  };
+
+  const fileDelete = () => {
+    setPortfolioFile(null);
+  };
 
   const contentInput = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -69,14 +82,116 @@ const WritePortfolio = () => {
           {data.hashtag.map((hashtag, i) => (
             <Hashtag key={i}>
               <p>{hashtag}</p>
-              <div onClick={() => deleteHashtag(i)} />
+              <Delete onClick={() => deleteHashtag(i)} />
             </Hashtag>
           ))}
         </Hashtags>
       </FieldSet>
+      <FieldSet>
+        <Subtitle>포트폴리오 파일 첨부</Subtitle>
+        <Announcement>포트폴리오 파일을 pdf 파일로 첨부해 주세요.</Announcement>
+        {portfolioFile ? (
+          <FileContainer>
+            <FileIcon />
+            <FileName>{portfolioFile.name}</FileName>
+            <Delete onClick={fileDelete} />
+          </FileContainer>
+        ) : (
+          <>
+            <input
+              type="file"
+              id="portfolioInput"
+              style={{ display: 'none' }}
+              onChange={fileChange}
+              accept=".pdf"
+            />
+            <FileInput htmlFor="portfolioInput">
+              <AddFileBtn />
+              <LabelText>포트폴리오 추가</LabelText>
+            </FileInput>
+          </>
+        )}
+      </FieldSet>
     </WritePost>
   );
 };
+
+const Delete = styled.div`
+  width: 12px;
+  aspect-ratio: 1;
+  background-image: url(${cancelIcon});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  cursor: pointer;
+`;
+
+const FileName = styled.p`
+  flex: 1 1 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const FileIcon = styled.div`
+  width: 16px;
+  height: 20px;
+
+  background-image: url(${fileIcon});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+`;
+
+const FileContainer = styled.div`
+  width: 510px;
+  height: 40px;
+
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const LabelText = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+`;
+
+const AddFileBtn = styled.div`
+  width: 20px;
+  height: 20px;
+
+  background-image: url(${addFileIcon});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+`;
+
+const FileInput = styled.label`
+  width: 160px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+
+  cursor: pointer;
+`;
+
+const Announcement = styled.p`
+  font-size: 12px;
+  color: #d0d0d0;
+  margin-bottom: 18px;
+`;
 
 const Hashtag = styled.div`
   width: fit-content;
