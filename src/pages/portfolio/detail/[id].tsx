@@ -1,5 +1,6 @@
 import { sendCommentIcon } from 'assets';
 import Comment from 'components/comment';
+import PortFolioViewer from 'components/portfolioViewer';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -8,14 +9,14 @@ const PortfolioDetail = () => {
 
   return (
     <DetailPage>
-      <PortFolioViewBox />
+      <PortFolioViewer />
       <PortfolioInfoContainer>
         <PortfolioInfo>
           <InfoWrap>
             <Title>취뽀기원</Title>
             <Hashtags>
               {['취뽀기원', '취뽀', '취업'].map((tag, i) => (
-                <Hashtag>#{tag}</Hashtag>
+                <Hashtag key={i}>#{tag}</Hashtag>
               ))}
             </Hashtags>
           </InfoWrap>
@@ -165,14 +166,6 @@ const PortfolioInfoContainer = styled.article`
 
   display: flex;
   flex-direction: column;
-`;
-
-const PortFolioViewBox = styled.div`
-  height: 100%;
-  aspect-ratio: 3/4;
-
-  box-shadow: 0px 5px 13px 4px rgba(0, 0, 0, 0.23);
-  border-radius: 15px;
 `;
 
 const DetailPage = styled.div`
