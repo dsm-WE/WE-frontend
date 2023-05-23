@@ -87,7 +87,8 @@ const PrevImgBtn = styled(NextImgBtn)`
 const PortfolioImg = styled.div`
   width: 100%;
   height: 100%;
-  background: no-repeat center/contain url(${({ img }: { img: string }) => img});
+  background: white no-repeat center/contain
+    url(${({ img }: { img: string }) => img});
 
   position: sticky;
   left: 0;
