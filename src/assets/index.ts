@@ -5,6 +5,8 @@ export { default as notionIcon } from './image/notion.svg';
 export { default as cancelIcon } from './image/cancel.svg';
 export { default as addFileIcon } from './image/addFileIcon.svg';
 export { default as fileIcon } from './image/fileIcon.svg';
+export { default as sendCommentIcon } from './image/sendCommentIcon.svg';
+export { default as arrow } from './image/arrow.svg';
 export { default as bannerImg } from './image/bannerImg.png';
 export { default as likeIcon } from './image/likeIcon.svg';
 export { default as unlikeIcon } from './image/unlikeIcon.svg';
