@@ -159,6 +159,8 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
 
   position: fixed;
+
+  z-index: 10;
 `;
 
 const SizedBox = styled.div`
