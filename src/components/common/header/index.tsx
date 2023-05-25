@@ -31,7 +31,9 @@ const Header = () => {
     <>
       <HeaderContainer>
         <BoxSection>
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
           <SearchInputWrap>
             <SearchInput />
             <SearchIcon />
