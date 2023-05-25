@@ -29,6 +29,7 @@ const Main = () => {
 
 const PortfolioGridBox = styled.div`
   display: grid;
+  width: 60vmax;
   gap: 20px 30px;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 50px;

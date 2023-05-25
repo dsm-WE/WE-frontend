@@ -99,7 +99,7 @@ const HoverBox = styled.div`
 `;
 
 const PortfolioContainer = styled.div`
-  width: 20vmax;
+  width: 100%;
   aspect-ratio: 3/4;
   border-radius: 10px;
   background-color: white;
