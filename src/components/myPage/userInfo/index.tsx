@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const UserInfoSection = () => {
@@ -10,7 +11,9 @@ const UserInfoSection = () => {
           <Introduction>우리집 고양이 뱃살이 넘 많아</Introduction>
         </TextWrap>
       </UserInfoWrap>
-      <ProfileEdit>수정하기</ProfileEdit>
+      <Link to="/myPage/edit">
+        <ProfileEdit>수정하기</ProfileEdit>
+      </Link>
     </UserInfoContainer>
   );
 };

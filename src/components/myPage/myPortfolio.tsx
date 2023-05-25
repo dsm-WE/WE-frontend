@@ -1,5 +1,6 @@
 import { addIcon } from 'assets';
 import Portfolio from 'components/portfolio';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MyPortfolio = () => {
@@ -8,7 +9,9 @@ const MyPortfolio = () => {
       <MyPortfolioSection>
         <SectionHead>
           <SectionTitle>내 포트폴리오</SectionTitle>
-          <AddPortfolioBtn />
+          <Link to="/portfolio/write">
+            <AddPortfolioBtn />
+          </Link>
         </SectionHead>
         <PortfolioWrap>
           {Array(3)
