@@ -6,10 +6,12 @@ import UserEdit from 'pages/myPage/edit';
 import WritePost from 'pages/portfolio/write';
 import PortfolioDetail from 'pages/portfolio/detail/[id]';
 import Header from 'components/common/header';
+import ScrollToTop from 'components/ScrollTop';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/auth" element={<Auth />} />
         <Route element={<Header />}>

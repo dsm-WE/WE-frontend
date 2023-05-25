@@ -31,7 +31,9 @@ const Header = () => {
     <>
       <HeaderContainer>
         <BoxSection>
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
           <SearchInputWrap>
             <SearchInput />
             <SearchIcon />
@@ -157,6 +159,8 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
 
   position: fixed;
+
+  z-index: 10;
 `;
 
 const SizedBox = styled.div`
