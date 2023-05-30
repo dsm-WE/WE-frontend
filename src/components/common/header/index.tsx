@@ -4,26 +4,37 @@ import { Link, Outlet } from 'react-router-dom';
 import { WE_Logo, searchIcon } from 'assets';
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(!false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const UserProfile = () => {
     if (isLogin) {
       return (
-        <Link to={'/myPage'}>
-          <Profile />
-        </Link>
+        <>
+          <Link to={'/'}>
+            <NavItem>포트폴리오 소식</NavItem>
+          </Link>
+          <Link to={'/myPage'}>
+            <NavItem>마이페이지</NavItem>
+          </Link>
+          <Link to={'/myPage'}>
+            <Profile />
+          </Link>
+        </>
       );
     }
 
     return (
-      <Nav>
-        <Link to={'/auth'}>
+      <>
+        <Link to={'/'}>
+          <NavItem>포트폴리오 소식</NavItem>
+        </Link>
+        <Link to={'/login'}>
           <NavItem>로그인</NavItem>
         </Link>
-        <Link to={'/auth'}>
+        <Link to={'/signup'}>
           <NavItem>회원가입</NavItem>
         </Link>
-      </Nav>
+      </>
     );
   };
 
@@ -35,20 +46,14 @@ const Header = () => {
             <Logo />
           </Link>
           <SearchInputWrap>
-            <SearchInput />
+            <SearchInput placeholder="포트폴리오 제목을 입력해 주세요." />
             <SearchIcon />
           </SearchInputWrap>
         </BoxSection>
         <BoxSection>
           <Nav>
-            <Link to={'/'}>
-              <NavItem>포트폴리오 소식</NavItem>
-            </Link>
-            <Link to={'/myPage'}>
-              <NavItem>마이페이지</NavItem>
-            </Link>
+            <UserProfile />
           </Nav>
-          <UserProfile />
         </BoxSection>
       </HeaderContainer>
       <SizedBox />
