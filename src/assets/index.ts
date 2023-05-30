@@ -12,3 +12,7 @@ export { default as likeIcon } from './image/likeIcon.svg';
 export { default as unlikeIcon } from './image/unlikeIcon.svg';
 export { default as addIcon } from './image/addIcon.svg';
 export { default as cameraIcon } from './image/cameraIcon.svg';
+export { default as login } from './image/login.png';
+export { default as signup0 } from './image/signup0.png';
+export { default as signup1 } from './image/signup1.png';
+export { default as signup2 } from './image/signup2.png';
