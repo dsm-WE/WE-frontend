@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MyPage from 'pages/myPage';
 import Main from 'pages/main';
+import Auth from 'pages/auth';
 import UserEdit from 'pages/myPage/edit';
 import WritePost from 'pages/portfolio/write';
 import PortfolioDetail from 'pages/portfolio/detail/[id]';
