@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const SignupEmail = () => {
   const navigate = useNavigate();
   const onSignupEmail = () => {
-    console.log('signup 1page');
+    console.log('signup 2page');
     navigate('/signupUser');
   };
 
