@@ -9,6 +9,8 @@ import Header from 'components/common/header';
 import ScrollToTop from 'components/ScrollTop';
 import Login from 'pages/login';
 import Signup from 'pages/signup';
+import SignupEmail from 'pages/signupEmail';
+import SignupUser from 'pages/signupUser';
 
 const Router = () => {
   return (
@@ -17,6 +19,8 @@ const Router = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signupEmail" element={<SignupEmail />} />
+        <Route path="/signupUser" element={<SignupUser />} />
         <Route element={<Header />}>
           <Route path="/" element={<Main />} />
           <Route path="/myPage">
