@@ -1,7 +1,14 @@
 import { WE_Logo, login } from 'assets';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const onLogin = () => {
+    console.log('login');
+    navigate('/');
+  };
+
   return (
     <LoginContainer>
       <MainBox>
@@ -16,12 +23,19 @@ const Login = () => {
               </LoginFieldWrap>
               <LoginFieldWrap>
                 <LoginField>PASSWORD</LoginField>
-                <LoginFieldInput placeholder="비밀번호를 입력해 주세요." />
+                <LoginFieldInput
+                  placeholder="비밀번호를 입력해 주세요."
+                  type="password"
+                />
               </LoginFieldWrap>
+              <LoginBtn onClick={onLogin}>로그인</LoginBtn>
             </LoginBoxMain>
+            <LoginToSignup>
+              처음이신가요? <SignupClick to="/signup">회원가입하기</SignupClick>
+            </LoginToSignup>
           </LoginBoxContainer>
         </LoginBox>
-        <ImgBox></ImgBox>
+        <ImgBox/>
       </MainBox>
     </LoginContainer>
   );
@@ -36,7 +50,7 @@ const LoginFieldInput = styled.input`
 `;
 
 const LoginFieldWrap = styled.div`
-  margin: 0 20px;
+  margin: 0 0 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,7 +93,7 @@ const LoginBox = styled.div`
 
 const LoginBoxContainer = styled.div`
   width: 350px;
-  height: 500px;
+  /* height: 500px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,10 +110,13 @@ const LoginBoxLogo = styled.div`
 `;
 
 const LoginBoxMain = styled.div`
-  height: 300px;
+  /* height: 300px; */
+  height: fit-content;
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
+
+  border-bottom: 1px #e0e0e0 solid;
 `;
 
 const LoginBoxTitle = styled.div`
@@ -109,15 +126,26 @@ const LoginBoxTitle = styled.div`
   text-align: center;
 `;
 
-const LoginPassword = styled.div`
-  color: #242e63;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-  height: 70px;
+const LoginBtn = styled.button`
+  margin: 30px auto;
   width: 308px;
-  border-bottom: 0.5px solid #e0e0e0;
+  height: 44px;
+  background-color: #242e63;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const LoginToSignup = styled.div`
+  font-size: 16px;
+  font-weight: normal;
+  margin: 20px auto;
+`;
+
+const SignupClick = styled(Link)`
+  color: #5a92ff;
+  text-decoration: underline;
 `;
 
 const ImgBox = styled.div`
