@@ -16,3 +16,7 @@ export { default as login } from './image/login.png';
 export { default as signup0 } from './image/signup0.png';
 export { default as signup1 } from './image/signup1.png';
 export { default as signup2 } from './image/signup2.png';
+export { default as jinuProfile } from './image/developer/jinu.png';
+export { default as juhyeProfile } from './image/developer/juhye.png';
+export { default as ppuiProfile } from './image/developer/ppui.png';
+export { default as subinsuProfile } from './image/developer/subinsu.jpg';

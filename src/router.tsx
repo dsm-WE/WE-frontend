@@ -8,6 +8,7 @@ import Header from 'components/common/header';
 import ScrollToTop from 'components/ScrollTop';
 import Login from 'pages/login';
 import Signup from 'pages/signup';
+import IntroduceDeveloper from 'pages/introduceDeveloper';
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
         <Route element={<Header />}>
           <Route path="/" element={<Main />} />
+          <Route path="/developer" element={<IntroduceDeveloper />} />
           <Route path="/myPage">
             <Route path="" element={<MyPage />} />
             <Route path="edit" element={<UserEdit />} />
