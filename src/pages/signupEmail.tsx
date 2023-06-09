@@ -1,36 +1,32 @@
-import { WE_Logo, signup0 } from 'assets';
+import { WE_Logo, signup1 } from 'assets';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Signup = () => {
+const SignupEmail = () => {
   const navigate = useNavigate();
-  const onSignup = () => {
-    console.log('signup 1page');
-    navigate('/signupEmail');
+  const onSignupEmail = () => {
+    console.log('signup 2page');
+    navigate('/signupUser');
   };
 
   return (
     <SignupContainer>
       <MainBox>
-        <ImgBox />
+        <ImgBoxContainer>
+          <ImgBox />
+        </ImgBoxContainer>
         <SignupBox>
           <SignupBoxContainer>
             <SignupBoxLogo />
             <SignupBoxMain>
               <SignupBoxTitle>Signup</SignupBoxTitle>
               <SignupFieldWrap>
-                <SignupFieldInput placeholder="아이디를 입력해 주세요." />
+                <SignupFieldInput placeholder="이메일을 입력해 주세요." />
               </SignupFieldWrap>
               <SignupFieldWrap>
-                <SignupFieldInput
-                  placeholder="비밀번호를 입력해 주세요."
-                  type="password"
-                />
+                <SignupFieldInput placeholder="인증 코드를 입력해 주세요." />
               </SignupFieldWrap>
-              <SignupFieldWrap>
-                <SignupFieldInput placeholder="비밀번호를 다시 입력해 주세요." />
-              </SignupFieldWrap>
-              <SignupBtn onClick={onSignup}>회원가입</SignupBtn>
+              <SignupBtn onClick={onSignupEmail}>회원가입</SignupBtn>
             </SignupBoxMain>
             <SignupToLogin>
               회원이신가요? <SignupClick to="/login">로그인하기</SignupClick>
@@ -42,12 +38,18 @@ const Signup = () => {
   );
 };
 
+const ImgBoxContainer = styled.div`
+  background-color: #9aa46b;
+  border-radius: 8px 0 0 8px;
+`;
+
 const ImgBox = styled.div`
   width: 500px;
   height: 700px;
-  position: absolute;
-  left: 0;
-  background-image: url(${signup0});
+  background-color: red;
+  /* position: absolute; */
+  /* left: 0; */
+  background: url(${signup1}) center/contain no-repeat;
   border-radius: 8px 0 0 8px;
 `;
 
@@ -63,8 +65,8 @@ const SignupContainer = styled.div`
 const SignupBox = styled.div`
   width: 500px;
   height: 700px;
-  position: absolute;
-  right: 0;
+  /* position: absolute; */
+  /* right: 0; */
   background-color: #ffffff;
   border-radius: 0 8px 8px 0;
 `;
@@ -100,7 +102,7 @@ const SignupBoxMain = styled.div`
 const SignupBoxTitle = styled.div`
   font-size: 30px;
   height: 50px;
-  margin: 0 0 60px 0;
+  margin: 0 0 100px 0;
   text-align: center;
 `;
 
@@ -153,4 +155,4 @@ const MainBox = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export default Signup;
+export default SignupEmail;
