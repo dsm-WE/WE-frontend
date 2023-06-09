@@ -11,6 +11,8 @@ import Login from 'pages/login';
 import Signup from 'pages/signup';
 import SignupEmail from 'pages/signupEmail';
 import SignupUser from 'pages/signupUser';
+import IntroduceDeveloper from 'pages/introduceDeveloper';
+
 
 const Router = () => {
   return (
@@ -23,6 +25,7 @@ const Router = () => {
         <Route path="/signupUser" element={<SignupUser />} />
         <Route element={<Header />}>
           <Route path="/" element={<Main />} />
+          <Route path="/developer" element={<IntroduceDeveloper />} />
           <Route path="/myPage">
             <Route path="" element={<MyPage />} />
             <Route path="edit" element={<UserEdit />} />
