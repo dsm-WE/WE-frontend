@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MyPage from 'pages/myPage';
 import Main from 'pages/main';
-import Auth from 'pages/auth';
 import UserEdit from 'pages/myPage/edit';
 import WritePost from 'pages/portfolio/write';
 import PortfolioDetail from 'pages/portfolio/detail/[id]';
@@ -9,10 +8,7 @@ import Header from 'components/common/header';
 import ScrollToTop from 'components/ScrollTop';
 import Login from 'pages/login';
 import Signup from 'pages/signup';
-import SignupEmail from 'pages/signupEmail';
-import SignupUser from 'pages/signupUser';
 import IntroduceDeveloper from 'pages/introduceDeveloper';
-
 
 const Router = () => {
   return (
@@ -21,8 +17,6 @@ const Router = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/signupEmail" element={<SignupEmail />} />
-        <Route path="/signupUser" element={<SignupUser />} />
         <Route element={<Header />}>
           <Route path="/" element={<Main />} />
           <Route path="/developer" element={<IntroduceDeveloper />} />

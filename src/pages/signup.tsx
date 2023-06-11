@@ -1,13 +1,37 @@
 import { WE_Logo, signup0 } from 'assets';
-import { Link, useNavigate } from 'react-router-dom';
+import EmailDataInput from 'components/auth/siginup/emailDataInput';
+import PasswordDataInput from 'components/auth/siginup/passwordDataInput';
+import UserProfileDataInput from 'components/auth/siginup/userProfileInput';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const onSignup = () => {
-    console.log('signup 1page');
-    navigate('/signupEmail');
+  const [searchParams] = useSearchParams();
+  const searchQuery = Number(searchParams.get('s'));
+  const [step, setStep] = useState<number>(searchQuery || 1);
+
+  const goNextStep = () => {
+    navigate(`/signup?s=${step + 1}`);
   };
+
+  const InputWidgetSwitch = () => {
+    switch (step) {
+      case 1:
+        return EmailDataInput();
+      case 2:
+        return PasswordDataInput();
+      case 3:
+        return UserProfileDataInput();
+      default:
+        return null;
+    }
+  };
+
+  useEffect(() => {
+    setStep(searchQuery || 1);
+  }, [searchQuery]);
 
   return (
     <SignupContainer>
@@ -18,19 +42,10 @@ const Signup = () => {
             <SignupBoxLogo />
             <SignupBoxMain>
               <SignupBoxTitle>Signup</SignupBoxTitle>
-              <SignupFieldWrap>
-                <SignupFieldInput placeholder="아이디를 입력해 주세요." />
-              </SignupFieldWrap>
-              <SignupFieldWrap>
-                <SignupFieldInput
-                  placeholder="비밀번호를 입력해 주세요."
-                  type="password"
-                />
-              </SignupFieldWrap>
-              <SignupFieldWrap>
-                <SignupFieldInput placeholder="비밀번호를 다시 입력해 주세요." />
-              </SignupFieldWrap>
-              <SignupBtn onClick={onSignup}>회원가입</SignupBtn>
+              {InputWidgetSwitch()}
+              <SignupBtn onClick={goNextStep}>
+                {step < 3 ? '다음' : '회원가입'}
+              </SignupBtn>
             </SignupBoxMain>
             <SignupToLogin>
               회원이신가요? <SignupClick to="/login">로그인하기</SignupClick>
@@ -90,10 +105,10 @@ const SignupBoxLogo = styled.div`
 const SignupBoxMain = styled.div`
   /* height: 300px; */
   height: fit-content;
+  display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 0 auto;
-
+  align-items: center;
   border-bottom: 1px #e0e0e0 solid;
 `;
 
@@ -104,31 +119,13 @@ const SignupBoxTitle = styled.div`
   text-align: center;
 `;
 
-const SignupFieldInput = styled.input`
-  width: 100%;
-  height: 40px;
-  border: 0px;
-  outline: none;
-  font-size: 18px;
-`;
-
-const SignupFieldWrap = styled.div`
-  margin: 0 0 30px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-  /* height: 70px; */
-  width: 308px;
-  border-bottom: 0.5px solid #e0e0e0;
-`;
-
 const SignupBtn = styled.button`
   margin: 30px auto;
   width: 308px;
   height: 44px;
   background-color: #242e63;
   color: #ffffff;
+  font-size: 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
