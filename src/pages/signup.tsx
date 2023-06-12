@@ -2,28 +2,76 @@ import { WE_Logo, signup0 } from 'assets';
 import EmailDataInput from 'components/auth/siginup/emailDataInput';
 import PasswordDataInput from 'components/auth/siginup/passwordDataInput';
 import UserProfileDataInput from 'components/auth/siginup/userProfileInput';
+import { signUpRequestDataModel } from 'models/signUp';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { codeCheck } from 'utils/api/auth/signUp';
 
 const Signup = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchQuery = Number(searchParams.get('s'));
   const [step, setStep] = useState<number>(searchQuery || 1);
+  const [imgFile, setImgFile] = useState<File | null>(null);
 
-  const goNextStep = () => {
+  const [signUpReqData, setSignUpReqData] = useState<signUpRequestDataModel>({
+    name: '',
+    email: '',
+    password: '',
+    code: '',
+    introduction: '',
+  });
+  const [checkPassword, setCheckPassword] = useState<string>('');
+
+  const updateSignUpReqData = (name: string, value: string) => {
+    setSignUpReqData((pre) => ({ ...pre, [name]: value }));
+  };
+
+  const updateCheckPassword = (value: string) => {
+    setCheckPassword(value);
+  };
+
+  const updateProfileFile = (file: File) => {
+    setImgFile(file);
+  };
+
+  useEffect(() => {
+    console.log(signUpReqData);
+  }, [signUpReqData]);
+
+  const goNextStep = async () => {
+    const { name, email, password, code, introduction } = signUpReqData;
+
     navigate(`/signup?s=${step + 1}`);
   };
 
   const InputWidgetSwitch = () => {
     switch (step) {
       case 1:
-        return EmailDataInput();
+        return (
+          <EmailDataInput
+            signUpReqData={signUpReqData}
+            updateSignUpReqData={updateSignUpReqData}
+          />
+        );
       case 2:
-        return PasswordDataInput();
+        return (
+          <PasswordDataInput
+            signUpReqData={signUpReqData}
+            updateSignUpReqData={updateSignUpReqData}
+            checkPassword={checkPassword}
+            updateCheckPassword={updateCheckPassword}
+          />
+        );
       case 3:
-        return UserProfileDataInput();
+        return (
+          <UserProfileDataInput
+            signUpReqData={signUpReqData}
+            updateSignUpReqData={updateSignUpReqData}
+            updateProfileFile={updateProfileFile}
+          />
+        );
       default:
         return null;
     }

@@ -1,16 +1,48 @@
+import { signUpRequestDataModel } from 'models/signUp';
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-const PasswordDataInput = () => {
+interface props {
+  signUpReqData: signUpRequestDataModel;
+  updateSignUpReqData: (name: string, value: string) => void;
+  checkPassword: string;
+  updateCheckPassword: (value: string) => void;
+}
+
+const PasswordDataInput = ({
+  signUpReqData,
+  updateSignUpReqData,
+  checkPassword,
+  updateCheckPassword,
+}: props) => {
+  const pwChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    updateSignUpReqData('password', value);
+  };
+
+  const pwCheckChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    updateCheckPassword(value);
+  };
+
   return (
     <>
       <SignupFieldWrap>
         <SignupFieldInput
+          onChange={pwChange}
+          value={signUpReqData.password}
           placeholder="비밀번호를 입력해 주세요."
           type="password"
         />
       </SignupFieldWrap>
       <SignupFieldWrap>
-        <SignupFieldInput placeholder="비밀번호를 다시 입력해 주세요." />
+        <SignupFieldInput
+          onChange={pwCheckChange}
+          value={checkPassword}
+          placeholder="비밀번호를 다시 입력해 주세요."
+        />
       </SignupFieldWrap>
     </>
   );

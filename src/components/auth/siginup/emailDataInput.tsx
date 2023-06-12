@@ -1,13 +1,36 @@
+import { signUpRequestDataModel } from 'models/signUp';
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-const EmailDataInput = () => {
+interface props {
+  signUpReqData: signUpRequestDataModel;
+  updateSignUpReqData: (name: string, value: string) => void;
+}
+
+const EmailDataInput = ({ signUpReqData, updateSignUpReqData }: props) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    updateSignUpReqData(name, value);
+  };
+
   return (
     <>
       <SignupFieldWrap>
-        <SignupFieldInput placeholder="이메일을 입력해 주세요." />
+        <SignupFieldInput
+          onChange={onChange}
+          name="email"
+          value={signUpReqData.email}
+          placeholder="이메일을 입력해 주세요."
+        />
       </SignupFieldWrap>
       <SignupFieldWrap>
-        <SignupFieldInput placeholder="인증 코드를 입력해 주세요." />
+        <SignupFieldInput
+          onChange={onChange}
+          name="code"
+          value={signUpReqData.code}
+          placeholder="인증 코드를 입력해 주세요."
+        />
       </SignupFieldWrap>
     </>
   );
@@ -28,8 +51,6 @@ const SignupFieldWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
-  /* height: 70px; */
   width: 308px;
   border-bottom: 0.5px solid #e0e0e0;
 `;
