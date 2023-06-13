@@ -17,7 +17,8 @@ const MyPortfolio = () => {
           {Array(3)
             .fill(0)
             .map((_, i) => (
-              <Portfolio key={i} />
+              // <Portfolio key={i} />
+              <></>
             ))}
         </PortfolioWrap>
       </MyPortfolioSection>

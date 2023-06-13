@@ -1,9 +1,52 @@
 import Banner from 'components/banner';
 import Footer from 'components/common/footer';
 import Portfolio from 'components/portfolio';
+import { portfolioListModel } from 'models/portfolioList';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getPortfolioList } from 'utils/api/portfolioList';
 
 const Main = () => {
+  const [portfolioList, setPortfolioList] = useState<portfolioListModel>({
+    content: [],
+    pageable: {
+      sort: {
+        empty: false,
+        sorted: false,
+        unsorted: false,
+      },
+      offset: 0,
+      pageNumber: 0,
+      pageSize: 0,
+      paged: false,
+      unpaged: false,
+    },
+    totalPages: 0,
+    totalElements: 0,
+    last: false,
+    size: 0,
+    number: 0,
+    sort: {
+      empty: false,
+      sorted: false,
+      unsorted: false,
+    },
+    numberOfElements: 0,
+    first: false,
+    empty: false,
+  });
+
+  const getData = async () => {
+    const res = await getPortfolioList();
+    setPortfolioList(res);
+
+    console.log(res.content);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <Banner />
@@ -15,11 +58,13 @@ const Main = () => {
           </ListCheckSubText>
         </ListCheckText>
         <PortfolioGridBox>
-          {Array(9)
-            .fill(0)
-            .map((_, i) => (
-              <Portfolio key={i} />
-            ))}
+          {portfolioList.content.map((content, i) => (
+            <Portfolio
+              key={i}
+              content={content}
+              portfolioId={portfolioList.content.length - i}
+            />
+          ))}
         </PortfolioGridBox>
       </ListCheckSection>
       <Footer />
