@@ -6,7 +6,7 @@ import { signUpRequestDataModel } from 'models/signUp';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { codeCheck } from 'utils/api/auth/signUp';
+import { codeCheck, signUp } from 'utils/api/auth/signUp';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -40,8 +40,73 @@ const Signup = () => {
     console.log(signUpReqData);
   }, [signUpReqData]);
 
+  const onSignUp = async () => {
+    const formData = new FormData();
+
+    try {
+      formData.append(
+        'request',
+        new Blob([JSON.stringify(signUpReqData)], { type: 'application/json' }),
+      );
+      formData.append('file', imgFile as File);
+
+      console.log(signUpReqData);
+      console.log(imgFile);
+      await signUp(formData);
+      navigate('/');
+      alert('회원가입 성공');
+    } catch (error) {
+      alert('회원가입에 실패했습니다');
+    }
+  };
+
   const goNextStep = async () => {
     const { name, email, password, code, introduction } = signUpReqData;
+
+    if (step === 1) {
+      if (!email) {
+        alert('email을 입력해주세요');
+        return null;
+      }
+      if (!code) {
+        alert('인증코드를 입력해주세요');
+        return null;
+      }
+      if (!(await codeCheck({ email, code }))) {
+        alert('인증코드가 잘못되었습니다');
+        return null;
+      }
+    }
+    if (step === 2) {
+      if (password !== checkPassword) {
+        alert('비밀번호가 다릅니다');
+        return null;
+      }
+
+      if (password.length < 8) {
+        alert('비밀번호를 8자리 이상 작성해주세요');
+        return null;
+      }
+    }
+    if (step === 3) {
+      if (!name) {
+        alert('닉네임을 입력해주세요');
+        return null;
+      }
+
+      if (!introduction) {
+        alert('자기소개를 입력해주세요');
+        return null;
+      }
+      if (!imgFile) {
+        alert('프로필사진을 추가해주세요');
+        return null;
+      }
+
+      onSignUp();
+
+      return null;
+    }
 
     navigate(`/signup?s=${step + 1}`);
   };

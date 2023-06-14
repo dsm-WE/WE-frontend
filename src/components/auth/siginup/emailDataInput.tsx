@@ -1,6 +1,7 @@
 import { signUpRequestDataModel } from 'models/signUp';
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { emailAuthCode } from 'utils/api/auth/signUp';
 
 interface props {
   signUpReqData: signUpRequestDataModel;
@@ -14,6 +15,10 @@ const EmailDataInput = ({ signUpReqData, updateSignUpReqData }: props) => {
     updateSignUpReqData(name, value);
   };
 
+  const SendEmailCode = () => {
+    emailAuthCode(signUpReqData.email);
+  };
+
   return (
     <>
       <SignupFieldWrap>
@@ -23,6 +28,9 @@ const EmailDataInput = ({ signUpReqData, updateSignUpReqData }: props) => {
           value={signUpReqData.email}
           placeholder="이메일을 입력해 주세요."
         />
+        <SendEmailCodeBtn onClick={SendEmailCode}>
+          인증코드 발송
+        </SendEmailCodeBtn>
       </SignupFieldWrap>
       <SignupFieldWrap>
         <SignupFieldInput
@@ -36,10 +44,19 @@ const EmailDataInput = ({ signUpReqData, updateSignUpReqData }: props) => {
   );
 };
 
+const SendEmailCodeBtn = styled.button`
+  border: 0px;
+  outline: none;
+  background-color: transparent;
+
+  font-size: 14px;
+  cursor: pointer;
+`;
+
 export default EmailDataInput;
 
 const SignupFieldInput = styled.input`
-  width: 100%;
+  flex: 1 1 auto;
   height: 40px;
   border: 0px;
   outline: none;
@@ -49,8 +66,9 @@ const SignupFieldInput = styled.input`
 const SignupFieldWrap = styled.div`
   margin: 0 0 30px 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  /* flex-direction: column; */
+  justify-content: flex-start;
+  align-items: center;
   width: 308px;
   border-bottom: 0.5px solid #e0e0e0;
 `;

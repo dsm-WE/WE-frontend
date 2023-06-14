@@ -42,6 +42,7 @@ const PasswordDataInput = ({
           onChange={pwCheckChange}
           value={checkPassword}
           placeholder="비밀번호를 다시 입력해 주세요."
+          type="password"
         />
       </SignupFieldWrap>
     </>
