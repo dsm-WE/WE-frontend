@@ -1,12 +1,29 @@
 import { WE_Logo, login } from 'assets';
+import { loginReqModel } from 'models/login';
+import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { loginApi } from 'utils/api/auth/login';
 
 const Login = () => {
   const navigate = useNavigate();
-  const onLogin = () => {
-    console.log('login');
-    navigate('/');
+
+  const [loginData, setLoginData] = useState<loginReqModel>({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setLoginData((pre) => ({ ...pre, [name]: value }));
+  };
+
+  const onLogin = async () => {
+    try {
+      await loginApi(loginData);
+      navigate('/');
+    } catch (error) {}
   };
 
   return (
@@ -19,13 +36,21 @@ const Login = () => {
               <LoginBoxTitle>Login</LoginBoxTitle>
               <LoginFieldWrap>
                 <LoginField>ID</LoginField>
-                <LoginFieldInput placeholder="아이디를 입력해 주세요." />
+                <LoginFieldInput
+                  placeholder="이메일을 입력해 주세요."
+                  name="email"
+                  value={loginData.email}
+                  onChange={handleChange}
+                />
               </LoginFieldWrap>
               <LoginFieldWrap>
                 <LoginField>PASSWORD</LoginField>
                 <LoginFieldInput
                   placeholder="비밀번호를 입력해 주세요."
                   type="password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={handleChange}
                 />
               </LoginFieldWrap>
               <LoginBtn onClick={onLogin}>로그인</LoginBtn>
@@ -35,7 +60,7 @@ const Login = () => {
             </LoginToSignup>
           </LoginBoxContainer>
         </LoginBox>
-        <ImgBox/>
+        <ImgBox />
       </MainBox>
     </LoginContainer>
   );
