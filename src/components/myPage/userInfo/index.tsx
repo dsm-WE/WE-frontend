@@ -1,14 +1,33 @@
+import { userDataModel } from 'models/userData';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getUserData } from 'utils/api/userData';
 
 const UserInfoSection = () => {
+  const [userData, setUserData] = useState<userDataModel>({
+    name: '',
+    email: '',
+    introduction: '',
+    profile: '',
+  });
+
+  const getData = async () => {
+    const res = await getUserData();
+    setUserData(res);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <UserInfoContainer>
       <UserInfoWrap>
-        <ProfileImg img="https://avatars.githubusercontent.com/u/81274450?v=4" />
+        <ProfileImg img={userData.profile} />
         <TextWrap>
-          <Name>오주혜</Name>
-          <Introduction>우리집 고양이 뱃살이 넘 많아</Introduction>
+          <Name>{userData.name}</Name>
+          <Introduction>{userData.introduction}</Introduction>
         </TextWrap>
       </UserInfoWrap>
       <Link to="/myPage/edit">
