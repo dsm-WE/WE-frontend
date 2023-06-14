@@ -21,3 +21,4 @@ export { default as juhyeProfile } from './image/developer/juhye.png';
 export { default as ppuiProfile } from './image/developer/ppui.png';
 export { default as subinsuProfile } from './image/developer/subinsu.jpg';
 export { default as peopleIcon } from './image/people.svg';
+export { default as dummyImg } from './image/dummyImg.png';

@@ -9,6 +9,7 @@ import { portfolioDetail } from 'utils/api/detailPortfolio';
 
 const PortfolioDetail = () => {
   const { id } = useParams();
+  const [isLoding, setIsLoding] = useState(true);
   const [detailPortfolioData, setDetailPortfolioData] =
     useState<detailPortfolioType>({
       title: '',
@@ -35,11 +36,16 @@ const PortfolioDetail = () => {
     const res = await portfolioDetail(Number(id));
 
     setDetailPortfolioData(res);
+    setIsLoding(false);
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  if (isLoding) {
+    return <></>;
+  }
 
   return (
     <DetailPage>
@@ -47,29 +53,33 @@ const PortfolioDetail = () => {
       <PortfolioInfoContainer>
         <PortfolioInfo>
           <InfoWrap>
-            <Title>취뽀기원</Title>
+            <Title>{detailPortfolioData.title}</Title>
             <Hashtags>
-              {/* {['취뽀기원', '취뽀', '취업'].map((tag, i) => (
+              {['취뽀기원', '취뽀', '취업'].map((tag, i) => (
                 <Hashtag key={i}>#{tag}</Hashtag>
-              ))} */}
+              ))}
             </Hashtags>
           </InfoWrap>
           <InfoWrap>
             <Writer>{detailPortfolioData.uploader.name}</Writer>
             <CretedDate>{detailPortfolioData.createdAt}</CretedDate>
           </InfoWrap>
-          {/* <Content>{JSON.stringify(detailPortfolioData)}</Content> */}
+          <Content>
+            {
+              '개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n'
+            }
+          </Content>
         </PortfolioInfo>
         <CommentSection>
-          {/* <CommentInputWrap>
+          <CommentInputWrap>
             <CommentInput />
             <SendBtn />
           </CommentInputWrap>
           <CommentWrap>
-            {detailPortfolioData.commentList.map((_, i) => (
+            {Array.from({ length: 10 }).map((_, i) => (
               <Comment key={i} />
             ))}
-          </CommentWrap> */}
+          </CommentWrap>
         </CommentSection>
       </PortfolioInfoContainer>
     </DetailPage>

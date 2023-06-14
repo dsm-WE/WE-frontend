@@ -1,5 +1,5 @@
 // import { likeIcon, unlikeIcon } from 'assets';
-import { likeIcon, unlikeIcon } from 'assets';
+import { dummyImg, likeIcon, unlikeIcon } from 'assets';
 import { portfolioContentType } from 'models/portfolioList';
 import { useRef, useState } from 'react';
 // import { useState } from 'react';
@@ -20,7 +20,7 @@ const Portfolio = ({ content, portfolioId }: props) => {
 
   return (
     <Link to={`/portfolio/detail/${portfolioId}`}>
-      <PortfolioContainer img={content.photoList.fileUrl}>
+      <PortfolioContainer img={dummyImg /**content.photoList.fileUrl */}>
         {/* <BackgroundImg src={content.photoList.fileUrl} /> */}
 
         <HoverBox>
@@ -30,7 +30,7 @@ const Portfolio = ({ content, portfolioId }: props) => {
               '개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~'
             }
           </SubTitle>
-          {/* <Hashtags>
+          <Hashtags>
             <Hashtag>#취뽀기원</Hashtag>
             <Hashtag>#취뽀</Hashtag>
             <Hashtag>#취업</Hashtag>
@@ -39,7 +39,7 @@ const Portfolio = ({ content, portfolioId }: props) => {
             <Hashtag>#취업</Hashtag>
             <Hashtag>#취업</Hashtag>
             <Hashtag>#취업</Hashtag>
-          </Hashtags> */}
+          </Hashtags>
           <LikeBtn
             icon={isLike ? likeIcon : unlikeIcon}
             onClick={updateIsLike}
@@ -69,19 +69,19 @@ const LikeBtn = styled.button`
   bottom: 15px;
 `;
 
-// const Hashtag = styled.div`
-//   padding: 3px 10px;
-//   border-radius: 15px;
-//   background-color: white;
-//   flex: 0 0 auto;
-// `;
+const Hashtag = styled.div`
+  padding: 3px 10px;
+  border-radius: 15px;
+  background-color: white;
+  flex: 0 0 auto;
+`;
 
-// const Hashtags = styled.div`
-//   display: flex;
-//   gap: 6px;
-//   max-width: 100%;
-//   flex-wrap: wrap;
-// `;
+const Hashtags = styled.div`
+  display: flex;
+  gap: 6px;
+  max-width: 100%;
+  flex-wrap: wrap;
+`;
 
 const Title = styled.p`
   white-space: pre-wrap;

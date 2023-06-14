@@ -62,7 +62,11 @@ const Main = () => {
             <Portfolio
               key={i}
               content={content}
-              portfolioId={content.photoList.id - 2}
+              portfolioId={
+                content.photoList.id >= 23
+                  ? content.photoList.id - 5
+                  : content.photoList.id - 2
+              }
             />
           ))}
         </PortfolioGridBox>

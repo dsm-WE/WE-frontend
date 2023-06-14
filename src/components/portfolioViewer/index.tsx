@@ -42,7 +42,7 @@ const PortfolioViewer = ({ imgs }: props) => {
 
   return (
     <PortfolioViewWrap ref={PortfolioViewWrapRef}>
-      <PortfolioViewBox
+      {/* <PortfolioViewBox
         ref={scrollBoxRef}
         onScroll={onScroll}
         width={Math.floor(PortfolioViewWrapRef.current?.offsetWidth ?? 1)}
@@ -50,7 +50,13 @@ const PortfolioViewer = ({ imgs }: props) => {
         {imgs.map((img, i) => (
           <PortfolioImg key={i} img={img.fileUrl} />
         ))}
-      </PortfolioViewBox>
+      </PortfolioViewBox> */}
+      <PortfolioView
+        src="https://test-we-test.s3.ap-northeast-2.amazonaws.com/test-we-test/artns25@dsm.hs.kr/My portfolio4/Group 97.pdf"
+        type="application/pdf"
+        // width="700px"
+        // height="700px"
+      />
       {pageNumber > 0 && <PrevImgBtn onClick={movePrevImg} />}
       {pageNumber < imgs.length - 1 && <NextImgBtn onClick={moveNextImg} />}
     </PortfolioViewWrap>
@@ -88,6 +94,11 @@ const PortfolioImg = styled.div`
   left: 0;
   flex-shrink: 0;
   scroll-snap-align: start;
+`;
+
+const PortfolioView = styled.embed`
+  width: 100%;
+  aspect-ratio: 3/4;
 `;
 
 const PortfolioViewBox = styled.div`

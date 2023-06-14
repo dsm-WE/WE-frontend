@@ -7,12 +7,9 @@ const Comment = () => {
       <CommentContentWrap>
         <Name>오주혜</Name>
         <Content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          doLorememe ipsum dolor sit amet, consectetur adipiscing elit, sed
-          doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          doLorememe ipsum dolor sit amet, consectetur adipiscing elit, sed
-          doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          doLorememe ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          정말 휼룡한 포트폴리오이네요! 참고하면 취업에 많은 도움이 될거
+          같아요!! 정말 휼룡한 포트폴리오이네요! 참고하면 취업에 많은 도움이
+          될거 같아요!!
         </Content>
       </CommentContentWrap>
     </CommentContainer>
