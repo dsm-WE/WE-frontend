@@ -1,5 +1,5 @@
 import Footer from 'components/common/footer';
-// import MyPortfolio from 'components/myPage/myPortfolio';
+import MyPortfolio from 'components/myPage/myPortfolio';
 import UserInfoSection from 'components/myPage/userInfo';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ const MyPage = () => {
     <MyPageWrap>
       <MyPageContainer>
         <UserInfoSection />
-        {/* <MyPortfolio /> */}
+        <MyPortfolio />
       </MyPageContainer>
       <Footer />
     </MyPageWrap>

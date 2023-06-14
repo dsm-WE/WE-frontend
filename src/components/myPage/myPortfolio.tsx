@@ -8,19 +8,19 @@ const MyPortfolio = () => {
     <>
       <MyPortfolioSection>
         <SectionHead>
-          <SectionTitle>내 포트폴리오</SectionTitle>
+          {/* <SectionTitle>내 포트폴리오</SectionTitle> */}
           <Link to="/portfolio/write">
             <AddPortfolioBtn />
           </Link>
         </SectionHead>
-        <PortfolioWrap>
+        {/* <PortfolioWrap>
           {Array(3)
             .fill(0)
             .map((_, i) => (
               // <Portfolio key={i} />
               <></>
             ))}
-        </PortfolioWrap>
+        </PortfolioWrap> */}
       </MyPortfolioSection>
     </>
   );
@@ -54,7 +54,8 @@ const SectionHead = styled.div`
   display: flex;
 
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
 `;
 
 const MyPortfolioSection = styled.section`

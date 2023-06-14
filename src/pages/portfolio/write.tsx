@@ -1,5 +1,5 @@
 import { addFileIcon, cancelIcon, fileIcon } from 'assets';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { uploadPortfolio } from 'utils/api/uploadPortfolio/ndex';
@@ -7,6 +7,7 @@ import { setToken } from 'utils/functions/tokenManager';
 import { WritePostDataType } from 'utils/interface/writePost';
 
 const WritePortfolio = () => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [data, setData] = useState<WritePostDataType>({
     title: '',
     content: '',
@@ -53,6 +54,15 @@ const WritePortfolio = () => {
   //   setData((pre) => ({ ...pre, hashtag: tempHash }));
   // };
 
+  const changeTextHeight = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height =
+        Math.max(textareaRef.current.scrollHeight, 90) + 'px';
+    }
+    contentInput(e);
+  };
+
   const submit = async () => {
     try {
       const formData = new FormData();
@@ -84,7 +94,9 @@ const WritePortfolio = () => {
           placeholder="포트폴리오에 대해 설명해 주세요."
           value={data.content}
           name="content"
-          onChange={contentInput}
+          ref={textareaRef}
+          rows={1}
+          onChange={changeTextHeight}
         />
       </FieldSet>
       {/* <FieldSet>
@@ -139,6 +151,7 @@ const SubmitBtn = styled.button`
   height: 44px;
 
   margin-top: 40px;
+  margin-bottom: 80px;
 
   background: #242e63;
   border: none;
@@ -276,8 +289,9 @@ const FieldSet = styled.div`
 const ContentInput = styled.textarea`
   width: 100%;
   height: 90px;
-  padding-left: 14px;
-  padding-top: 14px;
+  /* padding-left: 14px;
+  padding-top: 14px; */
+  padding: 14px;
   margin-top: 10px;
   border: 1px solid #d4d4d4;
   border-radius: 8px;
@@ -287,6 +301,7 @@ const ContentInput = styled.textarea`
   font-size: 20px;
   outline: none;
   resize: none;
+  overflow: hidden;
 `;
 
 const Input = styled.input`

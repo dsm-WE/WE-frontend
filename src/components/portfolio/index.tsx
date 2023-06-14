@@ -1,5 +1,7 @@
 // import { likeIcon, unlikeIcon } from 'assets';
+import { likeIcon, unlikeIcon } from 'assets';
 import { portfolioContentType } from 'models/portfolioList';
+import { useRef, useState } from 'react';
 // import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,11 +12,11 @@ interface props {
 }
 
 const Portfolio = ({ content, portfolioId }: props) => {
-  // const [isLike, setIsLike] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>(false);
 
-  // const updateIsLike = () => {
-  //   setIsLike((pre) => !pre);
-  // };
+  const updateIsLike = () => {
+    setIsLike((pre) => !pre);
+  };
 
   return (
     <Link to={`/portfolio/detail/${portfolioId}`}>
@@ -23,10 +25,12 @@ const Portfolio = ({ content, portfolioId }: props) => {
 
         <HoverBox>
           <Title>{content.title}</Title>
-          {/* <SubTitle>
-            {content.}
+          <SubTitle>
+            {
+              '개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~'
+            }
           </SubTitle>
-          <Hashtags>
+          {/* <Hashtags>
             <Hashtag>#취뽀기원</Hashtag>
             <Hashtag>#취뽀</Hashtag>
             <Hashtag>#취업</Hashtag>
@@ -36,34 +40,34 @@ const Portfolio = ({ content, portfolioId }: props) => {
             <Hashtag>#취업</Hashtag>
             <Hashtag>#취업</Hashtag>
           </Hashtags> */}
-          {/* <LikeBtn
+          <LikeBtn
             icon={isLike ? likeIcon : unlikeIcon}
             onClick={updateIsLike}
-          /> */}
+          />
         </HoverBox>
       </PortfolioContainer>
     </Link>
   );
 };
 
-// const LikeBtn = styled.button`
-//   width: 20px;
-//   aspect-ratio: 1;
-//   cursor: pointer;
+const LikeBtn = styled.button`
+  width: 20px;
+  aspect-ratio: 1;
+  cursor: pointer;
 
-//   background-image: url(${({ icon }: { icon: string }) => icon});
+  background-image: url(${({ icon }: { icon: string }) => icon});
 
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 
-//   border: none;
-//   background-color: transparent;
+  border: none;
+  background-color: transparent;
 
-//   position: absolute;
-//   right: 15px;
-//   bottom: 15px;
-// `;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+`;
 
 // const Hashtag = styled.div`
 //   padding: 3px 10px;
@@ -85,9 +89,9 @@ const Title = styled.p`
   color: white;
 `;
 
-// const SubTitle = styled(Title)`
-//   font-size: 12px;
-// `;
+const SubTitle = styled(Title)`
+  font-size: 12px;
+`;
 
 const HoverBox = styled.div`
   width: 100%;
@@ -105,15 +109,6 @@ const HoverBox = styled.div`
   top: 0;
   left: 0;
   z-index: 1;
-`;
-
-const BackgroundImg = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 `;
 
 const PortfolioContainer = styled.div`
