@@ -20,3 +20,4 @@ export { default as jinuProfile } from './image/developer/jinu.png';
 export { default as juhyeProfile } from './image/developer/juhye.png';
 export { default as ppuiProfile } from './image/developer/ppui.png';
 export { default as subinsuProfile } from './image/developer/subinsu.jpg';
+export { default as peopleIcon } from './image/people.svg';

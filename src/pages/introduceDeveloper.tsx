@@ -12,7 +12,7 @@ const IntroduceDeveloper = () => {
     {
       name: '오주혜',
       role: 'Front-end&Design',
-      content: '2학기엔 보지 말자...',
+      content: '취뽀 가보쟈잇.',
       profile: juhyeProfile,
     },
     {

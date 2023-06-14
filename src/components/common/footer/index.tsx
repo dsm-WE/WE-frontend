@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { githubIcon, notionIcon } from 'assets';
+import { githubIcon, notionIcon, peopleIcon } from 'assets';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -23,6 +24,9 @@ const Footer = () => {
           </Role>
         </Developers>
         <SocialMedias>
+          <Link to="/developer">
+            <SocialMedia img={peopleIcon} />
+          </Link>
           <a href="https://www.notion.so/548a0c41481b4a7aa1efab16ee816c44?pvs=4">
             <SocialMedia img={notionIcon} />
           </a>
