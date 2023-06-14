@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, Outlet } from 'react-router-dom';
 import { WE_Logo, searchIcon } from 'assets';
+import { getUserData } from 'utils/api/userData';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
+
+  const checkLogin = async () => {
+    try {
+      await getUserData();
+      setIsLogin(true);
+    } catch (error) {
+      setIsLogin(false);
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   const UserProfile = () => {
     if (isLogin) {
@@ -45,10 +59,10 @@ const Header = () => {
           <Link to="/">
             <Logo />
           </Link>
-          <SearchInputWrap>
+          {/* <SearchInputWrap>
             <SearchInput placeholder="포트폴리오 제목을 입력해 주세요." />
             <SearchIcon />
-          </SearchInputWrap>
+          </SearchInputWrap> */}
         </BoxSection>
         <BoxSection>
           <Nav>
@@ -86,6 +100,8 @@ const NavItem = styled.p`
 const Nav = styled.nav`
   width: fit-content;
   height: fit-content;
+
+  align-items: center;
 
   display: flex;
   gap: 40px;

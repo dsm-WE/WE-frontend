@@ -1,34 +1,81 @@
 import { cameraIcon } from 'assets';
+import { userDataModel } from 'models/userData';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { editUserData, getUserData } from 'utils/api/userData';
 
 const UserEdit = () => {
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState<userDataModel>({
+    name: '',
+    email: '',
+    introduction: '',
+    profile: '',
+  });
+
+  const getData = async () => {
+    const res = await getUserData();
+    setUserData(res);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setUserData((pre) => ({ ...pre, [name]: value }));
+  };
+
+  const onSubmit = async () => {
+    await editUserData({
+      name: userData.name,
+      introduction: userData.introduction,
+    });
+    navigate('/mypage');
+  };
+
   return (
     <EditPage>
       <EditSection>
         <FieldContainer>
           <ProfileWrap>
             <Profile />
-            <HoverBox htmlFor="profileImgInput">
+            {/* <HoverBox htmlFor="profileImgInput">
               <CameraImg />
-            </HoverBox>
-            <input
+            </HoverBox> */}
+            {/* <input
               type="file"
               style={{ display: 'none' }}
               id="profileImgInput"
-            />
+            /> */}
           </ProfileWrap>
           <EditFieldContainer>
             <EditFieldWrap>
+              <EditFieldLabel>이메일</EditFieldLabel>
+              <NicknameEditInput readOnly value={userData.email} />
+            </EditFieldWrap>
+            <EditFieldWrap>
               <EditFieldLabel>닉네임</EditFieldLabel>
-              <NicknameEditInput />
+              <NicknameEditInput
+                value={userData.name}
+                name="name"
+                onChange={onChange}
+              />
             </EditFieldWrap>
             <EditFieldWrap>
               <IntroductionEditFieldLabel>소개</IntroductionEditFieldLabel>
-              <IntroductionEditInput />
+              <IntroductionEditInput
+                value={userData.introduction}
+                onChange={onChange}
+                name="introduction"
+              />
             </EditFieldWrap>
           </EditFieldContainer>
         </FieldContainer>
-        <SubmitBtn>수정하기</SubmitBtn>
+        <SubmitBtn onClick={onSubmit}>수정하기</SubmitBtn>
       </EditSection>
     </EditPage>
   );
