@@ -18,8 +18,8 @@ const Portfolio = ({ content, portfolioId }: props) => {
 
   return (
     <Link to={`/portfolio/detail/${portfolioId}`}>
-      <PortfolioContainer>
-        <BackgroundImg src={content.photoList.fileUrl} />
+      <PortfolioContainer img={content.photoList.fileUrl}>
+        {/* <BackgroundImg src={content.photoList.fileUrl} /> */}
 
         <HoverBox>
           <Title>{content.title}</Title>
@@ -124,11 +124,13 @@ const PortfolioContainer = styled.div`
 
   background-color: white;
 
+  overflow: hidden;
+
   box-shadow: 0px 3px 8px 3px rgba(0, 0, 0, 0.23);
-  /* 
+  background-image: url(${({ img }: { img: string }) => `'${img}'`});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain; */
+  background-size: contain;
 
   &:not(:hover) > div {
     display: none;

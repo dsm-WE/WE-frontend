@@ -1,50 +1,75 @@
 import { sendCommentIcon } from 'assets';
 import Comment from 'components/comment';
 import PortFolioViewer from 'components/portfolioViewer';
+import { detailPortfolioType } from 'models/portfolioList';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { portfolioDetail } from 'utils/api/detailPortfolio';
 
 const PortfolioDetail = () => {
   const { id } = useParams();
+  const [detailPortfolioData, setDetailPortfolioData] =
+    useState<detailPortfolioType>({
+      title: '',
+      photoList: {
+        fileUrl: '',
+        fileName: '',
+        createdAt: '',
+        updatedAt: '',
+        id: 0,
+      },
+      uploader: {
+        name: '',
+        email: '',
+        introduction: '',
+        profile: '',
+      },
+      createdAt: '',
+      updatedAt: '',
+      commentList: [],
+      likeCount: 0,
+    });
+
+  const getData = async () => {
+    const res = await portfolioDetail(Number(id));
+
+    setDetailPortfolioData(res);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <DetailPage>
-      <PortFolioViewer />
+      <PortFolioViewer imgs={[detailPortfolioData.photoList]} />
       <PortfolioInfoContainer>
         <PortfolioInfo>
           <InfoWrap>
             <Title>취뽀기원</Title>
             <Hashtags>
-              {['취뽀기원', '취뽀', '취업'].map((tag, i) => (
+              {/* {['취뽀기원', '취뽀', '취업'].map((tag, i) => (
                 <Hashtag key={i}>#{tag}</Hashtag>
-              ))}
+              ))} */}
             </Hashtags>
           </InfoWrap>
           <InfoWrap>
-            <Writer>오주혜</Writer>
-            <CretedDate>2023.04.06</CretedDate>
+            <Writer>{detailPortfolioData.uploader.name}</Writer>
+            <CretedDate>{detailPortfolioData.createdAt}</CretedDate>
           </InfoWrap>
-          <Content>
-            취업을 희망하는 학생들 간에 스스로 포트폴리오를 공유하여 취준생들의
-            취업 준비에 도움을 제공하는 서비스입니다. 취업을 희망하는 학생들
-            간에 스스로 포트폴리오를 공유하여 취준생들의 취업 준비에 도움을
-            제공하는 서비스입니다. 취업을 희망하는 학생들 간에 스스로
-            포트폴리오를 공유하여 취준생들의 취업 준비에 도움을 제공하는
-            서비스입니다.
-          </Content>
+          {/* <Content>{JSON.stringify(detailPortfolioData)}</Content> */}
         </PortfolioInfo>
         <CommentSection>
-          <CommentInputWrap>
+          {/* <CommentInputWrap>
             <CommentInput />
             <SendBtn />
           </CommentInputWrap>
           <CommentWrap>
-            {Array(10)
-              .fill(0)
-              .map((_, i) => (
-                <Comment key={i} />
-              ))}
-          </CommentWrap>
+            {detailPortfolioData.commentList.map((_, i) => (
+              <Comment key={i} />
+            ))}
+          </CommentWrap> */}
         </CommentSection>
       </PortfolioInfoContainer>
     </DetailPage>

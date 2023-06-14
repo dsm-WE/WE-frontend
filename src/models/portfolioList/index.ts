@@ -1,12 +1,14 @@
+export interface photoListTpe {
+  fileUrl: string;
+  fileName: string;
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+}
+
 export interface portfolioContentType {
   title: string;
-  photoList: {
-    fileUrl: string;
-    fileName: string;
-    createdAt: string;
-    updatedAt: string;
-    id: number;
-  };
+  photoList: photoListTpe;
   uploader: {
     name: string;
     email: string;
@@ -15,6 +17,21 @@ export interface portfolioContentType {
   createdAt: string;
   updatedAt: string;
   commentCount: number;
+}
+
+export interface detailPortfolioType {
+  title: string;
+  photoList: photoListTpe;
+  uploader: {
+    name: string;
+    email: string;
+    introduction: string;
+    profile: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  commentList: string[];
+  likeCount: number;
 }
 
 interface sortDataType {

@@ -62,7 +62,7 @@ const Main = () => {
             <Portfolio
               key={i}
               content={content}
-              portfolioId={portfolioList.content.length - i}
+              portfolioId={content.photoList.id - 2}
             />
           ))}
         </PortfolioGridBox>
