@@ -1,16 +1,19 @@
 import { addFileIcon, cancelIcon, fileIcon } from 'assets';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { uploadPortfolio } from 'utils/api/uploadPortfolio/ndex';
+import { setToken } from 'utils/functions/tokenManager';
 import { WritePostDataType } from 'utils/interface/writePost';
 
 const WritePortfolio = () => {
   const [data, setData] = useState<WritePostDataType>({
     title: '',
     content: '',
-    hashtag: [],
   });
   const [hashInput, setHashInput] = useState<string>('');
   const [portfolioFile, setPortfolioFile] = useState<File | null>(null);
+  const navigate = useNavigate();
 
   const fileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files as FileList;
@@ -36,23 +39,32 @@ const WritePortfolio = () => {
     setHashInput(e.target.value);
   };
 
-  const enterEvent = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && hashInput) {
-      setData((pre) => ({ ...pre, hashtag: [...pre.hashtag, hashInput] }));
-      setHashInput('');
-    }
-  };
+  // const enterEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === 'Enter' && hashInput) {
+  //     setData((pre) => ({ ...pre, hashtag: [...pre.hashtag, hashInput] }));
+  //     setHashInput('');
+  //   }
+  // };
 
-  const deleteHashtag = (index: number) => {
-    const tempHash = [...data.hashtag];
-    tempHash.splice(index, 1);
+  // const deleteHashtag = (index: number) => {
+  //   const tempHash = [...data.hashtag];
+  //   tempHash.splice(index, 1);
 
-    setData((pre) => ({ ...pre, hashtag: tempHash }));
-  };
+  //   setData((pre) => ({ ...pre, hashtag: tempHash }));
+  // };
 
-  const submit = () => {
-    console.log(data);
-    console.log(portfolioFile);
+  const submit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append(
+        'request',
+        new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      );
+      formData.append('file', portfolioFile as File);
+
+      uploadPortfolio(formData);
+      navigate('/');
+    } catch (error) {}
   };
 
   return (
@@ -75,7 +87,7 @@ const WritePortfolio = () => {
           onChange={contentInput}
         />
       </FieldSet>
-      <FieldSet>
+      {/* <FieldSet>
         <Subtitle>프로젝트를 상징하는 해시태그를 입력해 주세요.</Subtitle>
         <Input
           placeholder="추가할 태그를 입력해 주세요."
@@ -91,10 +103,10 @@ const WritePortfolio = () => {
             </Hashtag>
           ))}
         </Hashtags>
-      </FieldSet>
+      </FieldSet> */}
       <FieldSet>
         <Subtitle>포트폴리오 파일 첨부</Subtitle>
-        <Announcement>포트폴리오 파일을 pdf 파일로 첨부해 주세요.</Announcement>
+        <Announcement>포트폴리오 파일을 첨부해 주세요.</Announcement>
         {portfolioFile ? (
           <FileContainer>
             <FileIcon />
@@ -108,7 +120,6 @@ const WritePortfolio = () => {
               id="portfolioInput"
               style={{ display: 'none' }}
               onChange={fileChange}
-              accept=".pdf"
             />
             <FileInput htmlFor="portfolioInput">
               <AddFileBtn />
