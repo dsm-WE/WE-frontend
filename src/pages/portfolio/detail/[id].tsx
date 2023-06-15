@@ -1,83 +1,125 @@
-import { sendCommentIcon } from 'assets';
+import { dummyImg2, sendCommentIcon } from 'assets';
 import Comment from 'components/comment';
 import PortFolioViewer from 'components/portfolioViewer';
+import { porfol } from 'docs/portfolio';
 import { detailPortfolioType } from 'models/portfolioList';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { portfolioDetail } from 'utils/api/detailPortfolio';
 
 const PortfolioDetail = () => {
-  const { id } = useParams();
+  const id = Number(useParams().id);
   const [isLoding, setIsLoding] = useState(true);
-  const [detailPortfolioData, setDetailPortfolioData] =
-    useState<detailPortfolioType>({
-      title: '',
-      photoList: {
-        fileUrl: '',
-        fileName: '',
-        createdAt: '',
-        updatedAt: '',
-        id: 0,
-      },
-      uploader: {
-        name: '',
-        email: '',
-        introduction: '',
-        profile: '',
-      },
-      createdAt: '',
-      updatedAt: '',
-      commentList: [],
-      likeCount: 0,
-    });
+  // const [detailPortfolioData, setDetailPortfolioData] =
+  //   useState<detailPortfolioType>({
+  //     title: '',
+  //     photoList: {
+  //       fileUrl: '',
+  //       fileName: '',
+  //       createdAt: '',
+  //       updatedAt: '',
+  //       id: 0,
+  //     },
+  //     uploader: {
+  //       name: '',
+  //       email: '',
+  //       introduction: '',
+  //       profile: '',
+  //     },
+  //     createdAt: '',
+  //     updatedAt: '',
+  //     commentList: [],
+  //     likeCount: 0,
+  //   });
 
-  const getData = async () => {
-    const res = await portfolioDetail(Number(id));
+  // const getData = async () => {
+  //   const res = await portfolioDetail(Number(id));
 
-    setDetailPortfolioData(res);
-    setIsLoding(false);
+  //   setDetailPortfolioData(res);
+  //   setIsLoding(false);
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // if (isLoding) {
+  //   return <></>;
+  // }
+
+  const [commentList, setCommentList] = useState<any[]>([]);
+  const [commentText, setCommentText] = useState<string>('');
+
+  const addComment = () => {
+    setCommentList((pre) => [
+      ...pre,
+      {
+        user: {
+          profiile: 'https://avatars.githubusercontent.com/u/81274450?v=4',
+          name: '오주혜',
+        },
+        content: commentText,
+      },
+    ]);
+
+    setCommentText('');
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  const enterEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && commentText) {
+      addComment();
+    }
+  };
 
-  if (isLoding) {
-    return <></>;
-  }
+  const data =
+    id !== 8
+      ? porfol[id]
+      : {
+          id: 8,
+          title: '내 포폴',
+          content: '디자인 포폴',
+          writer: 'testUser',
+          img: dummyImg2,
+          file: 'https://test-we-test.s3.ap-northeast-2.amazonaws.com/test-we-test/artns25@dsm.hs.kr/My portfolio4/Group 98.pdf',
+          conmments: [],
+          createdDate: '2023.6.15',
+          hashtag: ['취뽀'],
+        };
 
   return (
     <DetailPage>
-      <PortFolioViewer imgs={[detailPortfolioData.photoList]} />
+      <PortFolioViewer imgs={data.file} />
       <PortfolioInfoContainer>
         <PortfolioInfo>
           <InfoWrap>
-            <Title>{detailPortfolioData.title}</Title>
+            <Title>{data.title}</Title>
             <Hashtags>
-              {['취뽀기원', '취뽀', '취업'].map((tag, i) => (
+              {data.hashtag.map((tag, i) => (
                 <Hashtag key={i}>#{tag}</Hashtag>
               ))}
             </Hashtags>
           </InfoWrap>
           <InfoWrap>
-            <Writer>{detailPortfolioData.uploader.name}</Writer>
-            <CretedDate>{detailPortfolioData.createdAt}</CretedDate>
+            <Writer>{data.writer}</Writer>
+            <CretedDate>{data.createdDate}</CretedDate>
           </InfoWrap>
-          <Content>
-            {
-              '개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~\n'
-            }
-          </Content>
+          <Content>{data.content}</Content>
         </PortfolioInfo>
         <CommentSection>
           <CommentInputWrap>
-            <CommentInput />
-            <SendBtn />
+            <CommentInput
+              value={commentText}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setCommentText(e.target.value)
+              }
+              onKeyDown={enterEvent}
+            />
+            <SendBtn onClick={addComment} />
           </CommentInputWrap>
           <CommentWrap>
-            {Array.from({ length: 10 }).map((_, i) => (
-              <Comment key={i} />
+            {(id !== 8 ? data.conmments : commentList).map((comment, i) => (
+              <Comment key={i} data={comment} />
             ))}
           </CommentWrap>
         </CommentSection>

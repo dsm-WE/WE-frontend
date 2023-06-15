@@ -42,7 +42,7 @@ const UserEdit = () => {
       <EditSection>
         <FieldContainer>
           <ProfileWrap>
-            <Profile />
+            <Profile profile={userData.profile} />
             {/* <HoverBox htmlFor="profileImgInput">
               <CameraImg />
             </HoverBox> */}
@@ -185,7 +185,7 @@ const Profile = styled.div`
   border-radius: 50%;
 
   background: no-repeat center/cover
-    url('https://avatars.githubusercontent.com/u/81274450?v=4');
+    url(${({ profile }: { profile: string }) => profile});
 `;
 
 const ProfileWrap = styled.div`

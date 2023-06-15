@@ -1,16 +1,21 @@
-import { addFileIcon, cancelIcon, fileIcon } from 'assets';
+import { addFileIcon, cancelIcon, dummyImg2, fileIcon } from 'assets';
+import { porfol } from 'docs/portfolio';
 import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { uploadPortfolio } from 'utils/api/uploadPortfolio/ndex';
 import { setToken } from 'utils/functions/tokenManager';
 import { WritePostDataType } from 'utils/interface/writePost';
+import { porfolRecoil } from 'utils/store/dummy';
 
 const WritePortfolio = () => {
+  const setPorfol = useSetRecoilState(porfolRecoil);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [data, setData] = useState<WritePostDataType>({
     title: '',
     content: '',
+    hashtag: [],
   });
   const [hashInput, setHashInput] = useState<string>('');
   const [portfolioFile, setPortfolioFile] = useState<File | null>(null);
@@ -40,19 +45,19 @@ const WritePortfolio = () => {
     setHashInput(e.target.value);
   };
 
-  // const enterEvent = (e: KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === 'Enter' && hashInput) {
-  //     setData((pre) => ({ ...pre, hashtag: [...pre.hashtag, hashInput] }));
-  //     setHashInput('');
-  //   }
-  // };
+  const enterEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && hashInput) {
+      setData((pre) => ({ ...pre, hashtag: [...pre.hashtag, hashInput] }));
+      setHashInput('');
+    }
+  };
 
-  // const deleteHashtag = (index: number) => {
-  //   const tempHash = [...data.hashtag];
-  //   tempHash.splice(index, 1);
+  const deleteHashtag = (index: number) => {
+    const tempHash = [...data.hashtag];
+    tempHash.splice(index, 1);
 
-  //   setData((pre) => ({ ...pre, hashtag: tempHash }));
-  // };
+    setData((pre) => ({ ...pre, hashtag: tempHash }));
+  };
 
   const changeTextHeight = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (textareaRef && textareaRef.current) {
@@ -64,17 +69,34 @@ const WritePortfolio = () => {
   };
 
   const submit = async () => {
-    try {
-      const formData = new FormData();
-      formData.append(
-        'request',
-        new Blob([JSON.stringify(data)], { type: 'application/json' }),
-      );
-      formData.append('file', portfolioFile as File);
+    // try {
+    //   const formData = new FormData();
+    //   formData.append(
+    //     'request',
+    //     new Blob([JSON.stringify(data)], { type: 'application/json' }),
+    //   );
+    //   formData.append('file', portfolioFile as File);
+    //   uploadPortfolio(formData);
+    //   navigate('/');
+    // } catch (error) {}
 
-      uploadPortfolio(formData);
-      navigate('/');
-    } catch (error) {}
+    console.log('write');
+
+    setPorfol((pre) => [
+      ...pre,
+      {
+        id: 8,
+        title: data.title,
+        content: data.content,
+        writer: 'testUser',
+        img: dummyImg2,
+        file: 'https://test-we-test.s3.ap-northeast-2.amazonaws.com/test-we-test/artns25@dsm.hs.kr/My portfolio4/Group 98.pdf',
+        conmments: [],
+        createdDate: '2023.6.15',
+        hashtag: data.hashtag,
+      },
+    ]);
+    navigate('/');
   };
 
   return (
@@ -99,7 +121,7 @@ const WritePortfolio = () => {
           onChange={changeTextHeight}
         />
       </FieldSet>
-      {/* <FieldSet>
+      <FieldSet>
         <Subtitle>프로젝트를 상징하는 해시태그를 입력해 주세요.</Subtitle>
         <Input
           placeholder="추가할 태그를 입력해 주세요."
@@ -115,7 +137,7 @@ const WritePortfolio = () => {
             </Hashtag>
           ))}
         </Hashtags>
-      </FieldSet> */}
+      </FieldSet>
       <FieldSet>
         <Subtitle>포트폴리오 파일 첨부</Subtitle>
         <Announcement>포트폴리오 파일을 첨부해 주세요.</Announcement>

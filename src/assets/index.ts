@@ -22,3 +22,4 @@ export { default as ppuiProfile } from './image/developer/ppui.png';
 export { default as subinsuProfile } from './image/developer/subinsu.jpg';
 export { default as peopleIcon } from './image/people.svg';
 export { default as dummyImg } from './image/dummyImg.png';
+export { default as dummyImg2 } from './image/dummyImg2.png';

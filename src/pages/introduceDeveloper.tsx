@@ -6,7 +6,7 @@ const IntroduceDeveloper = () => {
     {
       name: '안진우',
       role: 'Back-end',
-      content: 'are you got it?',
+      content: '귀찮음',
       profile: jinuProfile,
     },
     {

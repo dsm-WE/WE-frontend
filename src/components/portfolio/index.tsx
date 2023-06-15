@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface props {
-  content: portfolioContentType;
+  content: any;
   portfolioId: number;
 }
 
@@ -19,26 +19,17 @@ const Portfolio = ({ content, portfolioId }: props) => {
   };
 
   return (
-    <Link to={`/portfolio/detail/${portfolioId}`}>
-      <PortfolioContainer img={dummyImg /**content.photoList.fileUrl */}>
+    <Link to={`/portfolio/detail/${content.id}`}>
+      <PortfolioContainer img={content.img /**content.photoList.fileUrl */}>
         {/* <BackgroundImg src={content.photoList.fileUrl} /> */}
 
         <HoverBox>
           <Title>{content.title}</Title>
-          <SubTitle>
-            {
-              '개발자 포트폴리오 공유합니다~ 참고하셔서 다들 취업 뽀개봅시다~ 좋아좋아요~'
-            }
-          </SubTitle>
+          <SubTitle>{content.content}</SubTitle>
           <Hashtags>
-            <Hashtag>#취뽀기원</Hashtag>
-            <Hashtag>#취뽀</Hashtag>
-            <Hashtag>#취업</Hashtag>
-            <Hashtag>#취업</Hashtag>
-            <Hashtag>#취업</Hashtag>
-            <Hashtag>#취업</Hashtag>
-            <Hashtag>#취업</Hashtag>
-            <Hashtag>#취업</Hashtag>
+            {content.hashtag.map((hash: any) => (
+              <Hashtag>{hash}</Hashtag>
+            ))}
           </Hashtags>
           <LikeBtn
             icon={isLike ? likeIcon : unlikeIcon}

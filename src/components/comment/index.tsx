@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 
-const Comment = () => {
+const Comment = ({ data }: any) => {
   return (
     <CommentContainer>
       <Profile />
       <CommentContentWrap>
-        <Name>오주혜</Name>
-        <Content>
-          정말 휼룡한 포트폴리오이네요! 참고하면 취업에 많은 도움이 될거
-          같아요!! 정말 휼룡한 포트폴리오이네요! 참고하면 취업에 많은 도움이
-          될거 같아요!!
-        </Content>
+        <Name>{data.user.name}</Name>
+        <Content>{data.content}</Content>
       </CommentContentWrap>
     </CommentContainer>
   );

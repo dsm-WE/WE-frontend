@@ -4,7 +4,8 @@ import { useRef, UIEvent, useState } from 'react';
 import styled from 'styled-components';
 
 interface props {
-  imgs: photoListTpe[];
+  // imgs: photoListTpe[];
+  imgs: any;
 }
 
 const PortfolioViewer = ({ imgs }: props) => {
@@ -26,19 +27,19 @@ const PortfolioViewer = ({ imgs }: props) => {
     current.scrollLeft = current.offsetWidth * pageNumber;
   };
 
-  const movePrevImg = () => {
-    if (pageNumber > 0) {
-      moveScroll(pageNumber - 1);
-      setPageNumber((pre) => pre - 1);
-    }
-  };
+  // const movePrevImg = () => {
+  //   if (pageNumber > 0) {
+  //     moveScroll(pageNumber - 1);
+  //     setPageNumber((pre) => pre - 1);
+  //   }
+  // };
 
-  const moveNextImg = () => {
-    if (pageNumber < imgs.length - 1) {
-      moveScroll(pageNumber + 1);
-      setPageNumber((pre) => pre + 1);
-    }
-  };
+  // const moveNextImg = () => {
+  //   if (pageNumber < imgs.length - 1) {
+  //     moveScroll(pageNumber + 1);
+  //     setPageNumber((pre) => pre + 1);
+  //   }
+  // };
 
   return (
     <PortfolioViewWrap ref={PortfolioViewWrapRef}>
@@ -52,13 +53,13 @@ const PortfolioViewer = ({ imgs }: props) => {
         ))}
       </PortfolioViewBox> */}
       <PortfolioView
-        src="https://test-we-test.s3.ap-northeast-2.amazonaws.com/test-we-test/artns25@dsm.hs.kr/My portfolio4/Group 97.pdf"
+        src={imgs}
         type="application/pdf"
         // width="700px"
         // height="700px"
       />
-      {pageNumber > 0 && <PrevImgBtn onClick={movePrevImg} />}
-      {pageNumber < imgs.length - 1 && <NextImgBtn onClick={moveNextImg} />}
+      {/* {pageNumber > 0 && <PrevImgBtn onClick={movePrevImg} />}
+      {pageNumber < imgs.length - 1 && <NextImgBtn onClick={moveNextImg} />} */}
     </PortfolioViewWrap>
   );
 };

@@ -1,4 +1,4 @@
-import { WE_Logo, signup0 } from 'assets';
+import { WE_Logo, signup0, signup1, signup2 } from 'assets';
 import EmailDataInput from 'components/auth/siginup/emailDataInput';
 import PasswordDataInput from 'components/auth/siginup/passwordDataInput';
 import UserProfileDataInput from 'components/auth/siginup/userProfileInput';
@@ -149,7 +149,7 @@ const Signup = () => {
   return (
     <SignupContainer>
       <MainBox>
-        <ImgBox />
+        <ImgBox cat={[signup0, signup1, signup2][step - 1]} />
         <SignupBox>
           <SignupBoxContainer>
             <SignupBoxLogo />
@@ -175,7 +175,8 @@ const ImgBox = styled.div`
   height: 700px;
   position: absolute;
   left: 0;
-  background-image: url(${signup0});
+  background: #b3b3b3 center/contain no-repeat
+    url(${({ cat }: { cat: string }) => cat});
   border-radius: 8px 0 0 8px;
 `;
 

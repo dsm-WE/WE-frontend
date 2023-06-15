@@ -3,10 +3,13 @@ import Footer from 'components/common/footer';
 import Portfolio from 'components/portfolio';
 import { portfolioListModel } from 'models/portfolioList';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getPortfolioList } from 'utils/api/portfolioList';
+import { porfolRecoil } from 'utils/store/dummy';
 
 const Main = () => {
+  const porfol = useRecoilValue(porfolRecoil);
   const [portfolioList, setPortfolioList] = useState<portfolioListModel>({
     content: [],
     pageable: {
@@ -58,15 +61,11 @@ const Main = () => {
           </ListCheckSubText>
         </ListCheckText>
         <PortfolioGridBox>
-          {portfolioList.content.map((content, i) => (
+          {[...porfol].reverse().map((content, i) => (
             <Portfolio
               key={i}
               content={content}
-              portfolioId={
-                content.photoList.id >= 23
-                  ? content.photoList.id - 5
-                  : content.photoList.id - 2
-              }
+              portfolioId={content.id >= 23 ? content.id - 5 : content.id - 2}
             />
           ))}
         </PortfolioGridBox>

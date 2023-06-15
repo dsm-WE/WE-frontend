@@ -70,8 +70,8 @@ const UserProfileDataInput = ({
 };
 
 const ProfileImg = styled.label`
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   display: flex;
   background: #bbb center/cover no-repeat
     url(${({ imgView }: { imgView: string }) => imgView});

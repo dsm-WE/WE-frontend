@@ -6,10 +6,12 @@ import { getUserData } from 'utils/api/userData';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [profile, setProfile] = useState<string>('');
 
   const checkLogin = async () => {
     try {
-      await getUserData();
+      const { profile } = await getUserData();
+      setProfile(profile);
       setIsLogin(true);
     } catch (error) {
       setIsLogin(false);
@@ -31,7 +33,7 @@ const Header = () => {
             <NavItem>마이페이지</NavItem>
           </Link>
           <Link to={'/myPage'}>
-            <Profile />
+            <Profile profile={profile} />
           </Link>
         </>
       );
@@ -83,9 +85,9 @@ const Profile = styled.div`
   aspect-ratio: 1;
 
   border-radius: 19px;
-  background-image: url('https://avatars.githubusercontent.com/u/81274450?v=4');
+  background-image: url(${({ profile }: { profile: string }) => profile});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 
   cursor: pointer;
